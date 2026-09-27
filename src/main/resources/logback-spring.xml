@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 业务日志：单行 JSON，字段稳定，自动携带 MDC 中的 traceId/spanId/traceOrigin -->
+    <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.github.highcumontoa.springboottraceobservabilityjava.observability.logging.StructuredJsonLogLayout"/>
+        </encoder>
+    </appender>
+
+    <!-- 可观测性组件自检日志：独立 logger 名 observability.self，
+         组件内部任何降级/故障都会落到这里，便于检索“可观测性自身出问题”的依据 -->
+    <logger name="observability.self" level="DEBUG" additivity="true"/>
+
+    <root level="INFO">
+        <appender-ref ref="JSON_CONSOLE"/>
+    </root>
+</configuration>

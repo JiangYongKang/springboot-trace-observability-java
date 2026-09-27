@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 业务 JSON 日志：字段集合固定，链路字段由 MDC 注入 -->
+    <appender name="JSON_CONSOLE"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="com.github.highcumontoa.springboottraceobservabilityjava.observability.logging.JsonLogEncoder"/>
+    </appender>
+
+    <!-- 可观测性组件自检日志：与业务日志走同一个 JSON appender，便于统一检索 -->
+    <logger name="observability.self-diagnostics" level="WARN" additivity="false">
+        <appender-ref ref="JSON_CONSOLE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="JSON_CONSOLE"/>
+    </root>
+
+</configuration>
